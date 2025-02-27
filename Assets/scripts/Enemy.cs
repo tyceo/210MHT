@@ -10,19 +10,19 @@ public class Enemy : MonoBehaviour
     public int objectIndex; //The index of mutations it takes. This determines what enemy type it is.
 
     //Variables to be derived by mutation manager
-    private string enemyBehaviour; //Enemy AI.
-    private Sprite enemySprite;    //Enemy sprite.
-    private float enemyHealth;    //Enemy Maximum Health
-    private float enemyDamage;    //Enemy Damage
-    private Color enemyColor;     //Enemy Colour
-    private float enemyXScale;    //Enemy Width
-    private float enemyYScale;    //Enemy Height
-    private float enemyMoveSpeed; //Enemy Move/Fly Speed (Modifier)
-    private float enemyJumpForce; //Enemy Move Speed (Modifier)
-    private float enemyGravity;   //Enemy Gravity (Modifier)
-    private bool enemyCanShoot;      //If the enemy can shoot projectiles.
-    private int enemyProjectileType; //The index of the projectile the enemy uses when shooting.
-    private float enemyShootSpeed;   //Enemy projectile shooting speed.
+    public string enemyBehaviour; //Enemy AI.
+    public Sprite enemySprite;    //Enemy sprite.
+    public float enemyHealth;    //Enemy Maximum Health
+    public float enemyDamage;    //Enemy Damage
+    public Color enemyColor;     //Enemy Colour
+    public float enemyXScale;    //Enemy Width
+    public float enemyYScale;    //Enemy Height
+    public float enemyMoveSpeed; //Enemy Move/Fly Speed (Modifier)
+    public float enemyJumpForce; //Enemy Move Speed (Modifier)
+    public float enemyGravity;   //Enemy Gravity (Modifier)
+    public bool enemyCanShoot;      //If the enemy can shoot projectiles.
+    public int enemyProjectileType; //The index of the projectile the enemy uses when shooting.
+    public float enemyShootSpeed;   //Enemy projectile shooting speed.
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
         GameObject mutationManagerObject = GameObject.Find("MutationManager");
         MutationManager mutationManagerScript = mutationManagerObject.GetComponent<MutationManager>();
 
-        objectIndex = Random.Range(0, mutationManagerScript.mutationEnemyCount);
+        //objectIndex = Random.Range(0, mutationManagerScript.mutationEnemyCount);
 
         //Collect relevent variables
         enemyBehaviour = mutationManagerScript.enemyBehaviour[objectIndex];
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 
 
         //Apply changes
-        gameObject.transform.localScale = new Vector3(enemyXScale, 1, enemyYScale);
+        gameObject.transform.localScale = new Vector3(enemyXScale, enemyYScale, 0);
         gameObject.GetComponent<Renderer>().material.color = enemyColor;
 
 }
