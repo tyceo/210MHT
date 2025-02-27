@@ -48,13 +48,13 @@ public class MutationManager : MonoBehaviour
 
     //Mutation Limits, defined manually in inspector. =============================================
     public List<string> enemyBehaviourTypes;
-    public List<string> enemySprites;
+    public List<Sprite> enemySprites;
 
     public List<string> platformBehaviourTypes;
-    public List<string> platformSprites;
+    public List<Sprite> platformSprites;
 
     public List<string> projectileBehaviourTypes;
-    public List<string> projectileSprites;
+    public List<Sprite> projectileSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -113,46 +113,49 @@ public class MutationManager : MonoBehaviour
         for(int i = 0; i < uniqueEnemies; i++)
         {
             mutationEnemyCount += 1;
-            enemyBehaviour[i] = enemyBehaviourTypes[Random.Range(0, enemyBehaviourTypes.Count)];
-            enemySprite[i] = enemySprite[Random.Range(0, enemySprite.Count)];
-            enemyHealth[i] = Random.Range(2, 5);
-            enemyDamage[i] = Random.Range(1, 3);
-            enemyColor[i] = new Color(Random.Range(0F, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
-            enemyXScale[i] = Random.Range(0.8f, 1.2f);
-            enemyYScale[i] = Random.Range(0.8f, 1.2f);
-            enemyMoveSpeed[i] = Random.Range(0.8f, 1.2f);
-            enemyJumpForce[i] = Random.Range(0.8f, 1.2f);
-            enemyGravity[i] = Random.Range(0.5f, 1.5f);
-            enemyProjectileType[i] = Random.Range(0, uniqueProjectiles);
-            enemyCanShoot[i] = Random.value < 0.5f;
-            enemyShootSpeed[i] = Random.Range(25, 75); //Based on fixed update rate of 50/second
+            enemyTimesMutated.Add(0);
+            enemyBehaviour.Add(enemyBehaviourTypes[Random.Range(0, enemyBehaviourTypes.Count)]);
+            enemySprite.Add(enemySprites[Random.Range(0, enemySprites.Count)]);
+            enemyHealth.Add(Random.Range(2, 5));
+            enemyDamage.Add(Random.Range(1, 3));
+            enemyColor.Add(new Color(Random.Range(0F, 1f), Random.Range(0, 1f), Random.Range(0, 1f)));
+            enemyXScale.Add(Random.Range(0.8f, 1.2f));
+            enemyYScale.Add(Random.Range(0.8f, 1.2f));
+            enemyMoveSpeed.Add(Random.Range(0.8f, 1.2f));
+            enemyJumpForce.Add(Random.Range(0.8f, 1.2f));
+            enemyGravity.Add(Random.Range(0.5f, 1.5f));
+            enemyProjectileType.Add(Random.Range(0, uniqueProjectiles));
+            enemyCanShoot.Add(Random.value < 0.5f);
+            enemyShootSpeed.Add(Random.Range(25, 75)); //Based on fixed update rate of 50/second
         }
 
         //Create set of platforms
         for(int i = 0; i < uniquePlatforms; i++)
         {
             mutationPlatformCount += 1;
-            platformBehaviour[i] = platformBehaviourTypes[Random.Range(0, platformBehaviourTypes.Count)];
-            platformSprite[i] = platformSprite[Random.Range(0, platformSprite.Count)];
-            platformColor[i] = new Color(Random.Range(0F, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
-            platformXScale[i] = Random.Range(0.8f, 1.2f);
-            platformYScale[i] = Random.Range(0.8f, 1.2f);
-            platformMoveSpeed[i] = Random.Range(0.8f, 1.2f);
-            platformGravity[i] = Random.Range(0.5f, 1.5f);
+            platformTimesMutated.Add(0);
+            platformBehaviour.Add(platformBehaviourTypes[Random.Range(0, platformBehaviourTypes.Count)]);
+            platformSprite.Add(platformSprites[Random.Range(0, platformSprites.Count)]);
+            platformColor.Add(new Color(Random.Range(0F, 1f), Random.Range(0, 1f), Random.Range(0, 1f)));
+            platformXScale.Add(Random.Range(0.8f, 1.2f));
+            platformYScale.Add(Random.Range(0.8f, 1.2f));
+            platformMoveSpeed.Add(Random.Range(0.8f, 1.2f));
+            platformGravity.Add(Random.Range(0.5f, 1.5f));
         }
 
         //Create set of projectiles
         for(int i = 0; i < uniqueProjectiles; i++)
         {
             mutationProjectileCount += 1;
-            projectileBehaviour[i] = projectileBehaviourTypes[Random.Range(0, projectileBehaviourTypes.Count)];
-            projectileSprite[i] = projectileSprite[Random.Range(0, projectileSprite.Count)];
-            projectileDamage[i] = Random.Range(1, 3);
-            projectileColor[i] = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0, 1f));
-            projectileXScale[i] = Random.Range(0.8f, 1.2f);
-            projectileYScale[i] = Random.Range(0.8f, 1.2f);
-            projectileMoveSpeed[i] = Random.Range(0.5f, 1.5f);
-            projectileGravity[i] = Random.Range(-0.5f, 0.5f);
+            projectileTimesMutated.Add(0);
+            projectileBehaviour.Add(projectileBehaviourTypes[Random.Range(0, projectileBehaviourTypes.Count)]);
+            projectileSprite.Add(projectileSprites[Random.Range(0, projectileSprites.Count)]);
+            projectileDamage.Add(Random.Range(1, 3));
+            projectileColor.Add(new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0, 1f)));
+            projectileXScale.Add(Random.Range(0.8f, 1.2f));
+            projectileYScale.Add(Random.Range(0.8f, 1.2f));
+            projectileMoveSpeed.Add(Random.Range(0.5f, 1.5f));
+            projectileGravity.Add(Random.Range(-0.5f, 0.5f));
         }
 
     }
@@ -160,6 +163,7 @@ public class MutationManager : MonoBehaviour
     //Applys changes to values to tweak them next time they spawn. typeToChange can be "Enemy", "Platform" or "Projectile"
     public void ApplyMutation(string typeToChange, int indexToChange)
     {
+        Debug.Log("applying changes");
         //Change enemy stats
         if (typeToChange == "Enemy")
         {
@@ -183,9 +187,25 @@ public class MutationManager : MonoBehaviour
             enemyColor[i] = new Color(r, g, b);
 
             enemyHealth[i] += Random.Range(-0.5f, 0.5f);
+            if(enemyHealth[i] < 0.1f)
+            {
+                enemyHealth[i] = 0.1f;
+            }
+
             enemyDamage[i] += Random.Range(-0.5f, 0.5f);
+
+            //Scales have lower limits to prevent issues
             enemyXScale[i] += Random.Range(-0.2f, 0.2f);
             enemyYScale[i] += Random.Range(-0.2f, 0.2f);
+            if (enemyXScale[i] < 0.1f)
+            {
+                enemyXScale[i] = 0.1f;
+            }
+            if (enemyYScale[i] < 0.1f)
+            {
+                enemyYScale[i] = 0.1f;
+            }
+
             enemyMoveSpeed[i] += Random.Range(-0.5f, 0.5f);
             enemyJumpForce[i] += Random.Range(-0.5f, 0.5f);
             enemyGravity[i] += Random.Range(-0.5f, 0.5f);
@@ -222,8 +242,18 @@ public class MutationManager : MonoBehaviour
             b += Random.Range(-0.1f, 0.1f);
             platformColor[i] = new Color(r, g, b);
 
+            //Scales have lower limits to prevent issues
             platformXScale[i] += Random.Range(-0.2f, 0.2f);
             platformYScale[i] += Random.Range(-0.2f, 0.2f);
+            if (platformXScale[i] < 0.1f)
+            {
+                platformXScale[i] = 0.1f;
+            }
+            if (platformYScale[i] < 0.1f)
+            {
+                platformYScale[i] = 0.1f;
+            }
+
             platformMoveSpeed[i] += Random.Range(-0.5f, 0.5f);
             platformGravity[i] += Random.Range(-0.5f, 0.5f);
         }
@@ -251,10 +281,22 @@ public class MutationManager : MonoBehaviour
             }
 
             projectileDamage[i] += Random.Range(-0.5f, 0.5f);
+
+            //Scales have lower limits to prevent issues
             projectileXScale[i] += Random.Range(-0.2f, 0.2f);
             projectileYScale[i] += Random.Range(-0.2f, 0.2f);
+            if (projectileXScale[i] < 0.1f)
+            {
+                projectileXScale[i] = 0.1f;
+            }
+            if (projectileYScale[i] < 0.1f)
+            {
+                projectileYScale[i] = 0.1f;
+            }
+
             projectileMoveSpeed[i] += Random.Range(-0.5f, 0.5f);
             projectileGravity[i] += Random.Range(-0.5f, 0.5f);
+
         }
     }
 
