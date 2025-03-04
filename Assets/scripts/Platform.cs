@@ -18,9 +18,20 @@ public class Platform : MonoBehaviour
     private float platformMoveSpeed;   //Platform Move Speed (Modifier)
     private float platformGravity;     //Platform Gravity (Modifier)
 
+
+    //toms code
+    public float moveSpeed = 2f; // Speed of the platform's movement
+    public float moveRange = 3f; // Maximum distance the platform moves from its start point
+    public bool startMovingUp = true; // Initial direction of the platform's movement
+
+    private Vector3 startPosition; // The starting position of the platform
+    private bool movingUp; // Current direction of the platform's movement
+
+
     // Start is called before the first frame update
     void Start()
     {
+        /*
         //Find the mutation manager and take relevent variables.
         GameObject mutationManagerObject = GameObject.Find("MutationManager");
         MutationManager mutationManagerScript = mutationManagerObject.GetComponent<MutationManager>();
@@ -37,12 +48,64 @@ public class Platform : MonoBehaviour
         platformGravity = mutationManagerScript.platformGravity[objectIndex];
 
         //Apply mutation to this index so its different the next time it spawns.
-        mutationManagerScript.ApplyMutation("Platform", objectIndex);
+        mutationManagerScript.ApplyMutation("Platform", objectIndex);                     //THIS BROKE THE MOVEMENT
+        */
+
+        //toms code
+        // Record the starting position
+        startPosition = transform.position;
+
+        // Set the initial direction
+        movingUp = startMovingUp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        MovePlatform();
     }
+    private void MovePlatform()
+    {
+        // Determine the direction
+        if (movingUp)
+        {
+            // Move up
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+
+            // Check if the platform has reached the top
+            if (transform.position.y >= startPosition.y + moveRange)
+            {
+                movingUp = false;
+            }
+        }
+        else
+        {
+            // Move down
+            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+
+            // Check if the platform has reached the bottom
+            if (transform.position.y <= startPosition.y - moveRange)
+            {
+                movingUp = true;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = transform;
+            print("touch");
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
+            print("touch no more");
+        }
+    }
+
 }
