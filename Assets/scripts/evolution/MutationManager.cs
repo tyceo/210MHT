@@ -126,7 +126,7 @@ public class MutationManager : MonoBehaviour
             enemyGravity.Add(Random.Range(0.5f, 1.5f));
             enemyProjectileType.Add(Random.Range(0, uniqueProjectiles));
             enemyCanShoot.Add(Random.value < 0.5f);
-            enemyShootSpeed.Add(Random.Range(25, 75)); //Based on fixed update rate of 50/second
+            enemyShootSpeed.Add(Random.Range(2, 4));
         }
 
         //Create set of platforms
@@ -137,8 +137,8 @@ public class MutationManager : MonoBehaviour
             platformBehaviour.Add(platformBehaviourTypes[Random.Range(0, platformBehaviourTypes.Count)]);
             platformSprite.Add(platformSprites[Random.Range(0, platformSprites.Count)]);
             platformColor.Add(new Color(Random.Range(0F, 1f), Random.Range(0, 1f), Random.Range(0, 1f)));
-            platformXScale.Add(Random.Range(0.8f, 1.2f));
-            platformYScale.Add(Random.Range(0.8f, 1.2f));
+            platformXScale.Add(Random.Range(2f, 5f));
+            platformYScale.Add(Random.Range(0.2f, 1f));
             platformMoveSpeed.Add(Random.Range(0.8f, 1.2f));
             platformGravity.Add(Random.Range(0.5f, 1.5f));
         }

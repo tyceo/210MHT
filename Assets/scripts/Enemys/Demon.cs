@@ -9,10 +9,41 @@ public class Demon : MonoBehaviour
 
     private float shootTimer;
 
+    //Mutation Stuff
+    public int objectIndex;
+
+    private Sprite enemySprite;    //Enemy sprite.
+    private float enemyDamage;    //Enemy Damage
+    private Color enemyColor;     //Enemy Colour
+    private float enemyXScale;    //Enemy Width
+    private float enemyYScale;    //Enemy Height
+    private int enemyProjectileType; //The index of the projectile the enemy uses when shooting.
+    private float enemyShootSpeed;   //Enemy projectile shooting speed.
+
     void Start()
     {
         // Set a random initial shoot timer
-        shootTimer = Random.Range(minShootInterval, maxShootInterval);
+        //shootTimer = Random.Range(minShootInterval, maxShootInterval);
+
+        //Find the mutation manager and take relevent variables.
+        GameObject mutationManagerObject = GameObject.Find("MutationManager");
+        MutationManager mutationManagerScript = mutationManagerObject.GetComponent<MutationManager>();
+
+        //Collect relevent variables
+        enemySprite = mutationManagerScript.enemySprite[objectIndex];
+        enemyDamage = mutationManagerScript.enemyDamage[objectIndex];
+        enemyColor = mutationManagerScript.enemyColor[objectIndex];
+        enemyXScale = mutationManagerScript.enemyXScale[objectIndex];
+        enemyYScale = mutationManagerScript.enemyYScale[objectIndex];
+        enemyProjectileType = mutationManagerScript.enemyProjectileType[objectIndex];
+        enemyShootSpeed = mutationManagerScript.enemyShootSpeed[objectIndex];
+
+        //Apply mutations
+        gameObject.GetComponent<SpriteRenderer>().sprite = enemySprite;
+        gameObject.GetComponent<SpriteRenderer>().color = enemyColor;
+        transform.localScale = new Vector2(enemyXScale, enemyYScale);
+        minShootInterval = enemyShootSpeed * 0.8f;
+        maxShootInterval = enemyShootSpeed * 1.2f;
     }
 
     void Update()

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3859933387325715275}
   - component: {fileID: 4902524096130101344}
   - component: {fileID: 7523923467020901546}
-  - component: {fileID: 3394412269334550986}
   - component: {fileID: 4935128189651662873}
+  - component: {fileID: 3394412269334550986}
   m_Layer: 6
   m_Name: Moving Platform
   m_TagString: Ground
@@ -183,22 +183,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.04, y: 1.24}
   m_EdgeRadius: 0
---- !u!114 &3394412269334550986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7864502057182954899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf45602cb48e7814cbeeeece8c2c8432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectIndex: 0
-  moveSpeed: 2
-  moveRange: 3
-  startMovingUp: 1
 --- !u!251 &4935128189651662873
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -218,3 +202,19 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &3394412269334550986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7864502057182954899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45602cb48e7814cbeeeece8c2c8432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIndex: 0
+  moveSpeed: 2
+  moveRange: 3
+  startMovingUp: 1

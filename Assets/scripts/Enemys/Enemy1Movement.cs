@@ -1,3 +1,4 @@
+using UnityEditor.Search;
 using UnityEngine;
 
 public class Enemy1Movement : MonoBehaviour
@@ -12,10 +13,39 @@ public class Enemy1Movement : MonoBehaviour
     private bool movingRight = false; // Direction of movement
     private Rigidbody2D rb;
 
+    //Mutation Stuff
+    public int objectIndex;
+
+    private Sprite enemySprite;    //Enemy sprite.
+    private float enemyDamage;    //Enemy Damage
+    private Color enemyColor;     //Enemy Colour
+    private float enemyXScale;    //Enemy Width
+    private float enemyYScale;    //Enemy Height
+    private float enemyMoveSpeed; //Enemy Move/Fly Speed (Modifier)
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //Find the mutation manager and take relevent variables.
+        GameObject mutationManagerObject = GameObject.Find("MutationManager");
+        MutationManager mutationManagerScript = mutationManagerObject.GetComponent<MutationManager>();
+
+        //Collect relevent variables
+        enemySprite = mutationManagerScript.enemySprite[objectIndex];
+        enemyDamage = mutationManagerScript.enemyDamage[objectIndex];
+        enemyColor = mutationManagerScript.enemyColor[objectIndex];
+        enemyXScale = mutationManagerScript.enemyXScale[objectIndex];
+        enemyYScale = mutationManagerScript.enemyYScale[objectIndex];
+        enemyMoveSpeed = mutationManagerScript.enemyMoveSpeed[objectIndex];
+
+        //Apply mutations
+        gameObject.GetComponent<SpriteRenderer>().sprite = enemySprite;
+        gameObject.GetComponent<SpriteRenderer>().color = enemyColor;
+        transform.localScale = new Vector2(enemyXScale, enemyYScale);
+        moveSpeed = enemyMoveSpeed;
     }
 
     // Update is called once per frame

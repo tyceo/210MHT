@@ -11,8 +11,9 @@ public class Player_Movement : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded = false;
     public int goingleft;
-    public Animator animator;
 
+    public Sprite playerIdle;
+    public Sprite playerMoving;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,23 +55,11 @@ public class Player_Movement : MonoBehaviour
         if (rb.linearVelocity.y < 0 || rb.linearVelocity.y > 0)
         {
 
-            animator.SetBool("Jump", true);
+            gameObject.GetComponent<SpriteRenderer>().sprite = playerMoving;
         }
         else
         {
-
-            animator.SetBool("Jump", false);
-        }
-
-        if (rb.linearVelocity.x < 0 || rb.linearVelocity.x > 0)
-        {
-
-            animator.SetBool("moving", false);
-        }
-        else
-        {
-
-            animator.SetBool("moving", true);
+            gameObject.GetComponent<SpriteRenderer>().sprite = playerIdle;
         }
     }
 

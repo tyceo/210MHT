@@ -31,7 +31,6 @@ public class Platform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*
         //Find the mutation manager and take relevent variables.
         GameObject mutationManagerObject = GameObject.Find("MutationManager");
         MutationManager mutationManagerScript = mutationManagerObject.GetComponent<MutationManager>();
@@ -48,8 +47,13 @@ public class Platform : MonoBehaviour
         platformGravity = mutationManagerScript.platformGravity[objectIndex];
 
         //Apply mutation to this index so its different the next time it spawns.
-        mutationManagerScript.ApplyMutation("Platform", objectIndex);                     //THIS BROKE THE MOVEMENT
-        */
+        mutationManagerScript.ApplyMutation("Platform", objectIndex);
+
+        //Apply the mutations!
+        gameObject.GetComponent<SpriteRenderer>().sprite = platformSprite;
+        gameObject.GetComponent<SpriteRenderer>().color = platformColor;
+        transform.localScale = new Vector2(platformXScale, platformYScale);
+        moveSpeed = platformMoveSpeed;
 
         //toms code
         // Record the starting position
@@ -66,27 +70,32 @@ public class Platform : MonoBehaviour
     }
     private void MovePlatform()
     {
-        // Determine the direction
-        if (movingUp)
+        //Move if the mutation is set to "Moving"
+        if(platformBehaviour == "Moving")
         {
-            // Move up
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
 
-            // Check if the platform has reached the top
-            if (transform.position.y >= startPosition.y + moveRange)
+            // Determine the direction
+            if (movingUp)
             {
-                movingUp = false;
+                // Move up
+                transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+
+                // Check if the platform has reached the top
+                if (transform.position.y >= startPosition.y + moveRange)
+                {
+                    movingUp = false;
+                }
             }
-        }
-        else
-        {
-            // Move down
-            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
-
-            // Check if the platform has reached the bottom
-            if (transform.position.y <= startPosition.y - moveRange)
+            else
             {
-                movingUp = true;
+                // Move down
+                transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+
+                // Check if the platform has reached the bottom
+                if (transform.position.y <= startPosition.y - moveRange)
+                {
+                    movingUp = true;
+                }
             }
         }
     }
@@ -107,5 +116,4 @@ public class Platform : MonoBehaviour
             print("touch no more");
         }
     }
-
 }
