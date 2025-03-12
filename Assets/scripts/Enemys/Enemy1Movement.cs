@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy1Movement : MonoBehaviour
 {
-    //                  THIS ONE GOES BACK AND FORTH LIKE GREEN SHELL MARIO ENEMY
+    //                  SPIKE DUDE
 
 
     public float moveSpeed = 2f;
