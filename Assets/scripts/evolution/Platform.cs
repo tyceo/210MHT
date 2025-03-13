@@ -52,7 +52,7 @@ public class Platform : MonoBehaviour
         //Apply the mutations!
         gameObject.GetComponent<SpriteRenderer>().sprite = platformSprite;
         gameObject.GetComponent<SpriteRenderer>().color = platformColor;
-        transform.localScale = new Vector2(platformXScale, platformYScale);
+        //transform.localScale = new Vector2(platformXScale, platformYScale);
         moveSpeed = platformMoveSpeed;
 
         //toms code

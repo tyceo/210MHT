@@ -32,20 +32,45 @@ public class Enemy : MonoBehaviour
 
 
         //Depending on the enemy type, instantiate the enemy here.
-        if(enemyBehaviour == "Demon")
+        if (enemyBehaviour == "Demon")
         {
-        var spawnEnemy = Instantiate(spawnDemon, this.transform);
-        spawnEnemy.GetComponent<Demon>().objectIndex = objectIndex;
+            // Instantiate the demon
+            var spawnEnemy = Instantiate(spawnDemon, this.transform);
+
+            // Set the y position to 0
+            Vector3 newPosition = spawnEnemy.transform.position;
+            newPosition.y = 3f; // Set y to 0
+            spawnEnemy.transform.position = newPosition;
+
+            // Set the objectIndex for the demon
+            spawnEnemy.GetComponent<Demon>().objectIndex = objectIndex;
         }
+
         if (enemyBehaviour == "Flower")
         {
+            // Instantiate the flower
             var spawnEnemy = Instantiate(spawnFlower, this.transform);
+
+            // Set the y position to 0
+            Vector3 newPosition = spawnEnemy.transform.position;
+            newPosition.y = 3f; // Set y to 0
+            spawnEnemy.transform.position = newPosition;
+
+            // Set the objectIndex for the flower
             spawnEnemy.GetComponent<enemy2Movement>().objectIndex = objectIndex;
         }
         if (enemyBehaviour == "SpikeDude")
         {
+            // Instantiate the SpikeDude
             var spawnEnemy = Instantiate(spawnSpikeDude, this.transform);
-            //spawnEnemy.GetComponent<Enemy1Movement>().objectIndex = objectIndex;
+
+            // Set the y position to 0
+            Vector3 newPosition = spawnEnemy.transform.position;
+            newPosition.y = 3f; // Set y to 0
+            spawnEnemy.transform.position = newPosition;
+
+            // Uncomment and set the objectIndex for SpikeDude if needed
+            // spawnEnemy.GetComponent<Enemy1Movement>().objectIndex = objectIndex;
         }
         if (enemyBehaviour == "UFO")
         {
